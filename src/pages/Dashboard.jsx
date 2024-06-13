@@ -1,7 +1,31 @@
 import { Box, Flex, Text, VStack, HStack, Table, Thead, Tbody, Tr, Th, Td, Avatar, IconButton } from "@chakra-ui/react";
 import { FaArrowRight } from "react-icons/fa";
+import { Line } from "react-chartjs-2";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const Dashboard = () => {
+  const data = {
+    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    datasets: [
+      {
+        label: 'Output Messages',
+        data: [12, 19, 3, 5, 2, 3, 7],
+        fill: false,
+        backgroundColor: 'rgba(75,192,192,0.2)',
+        borderColor: 'rgba(75,192,192,1)',
+      },
+    ],
+  };
+
+  const options = {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
   return (
     <Box p={4}>
       <Flex direction="column" mb={4}>
@@ -10,11 +34,7 @@ const Dashboard = () => {
       <Flex direction={{ base: "column", md: "row" }} mb={4}>
         <Box flex={1} p={4} borderWidth={1} borderRadius="lg" mr={{ md: 4 }} mb={{ base: 4, md: 0 }}>
           <Text fontSize="lg" fontWeight="bold">Worker output</Text>
-          <Flex direction="column" alignItems="center" justifyContent="center" height="100%">
-            <Text fontSize="xl" mb={2}>😞</Text>
-            <Text>No emails sent in the past two weeks</Text>
-            <Text as="button" color="blue.500" mt={2}>Go to campaigns</Text>
-          </Flex>
+          <Line data={data} options={options} />
         </Box>
         <Box flex={1} p={4} borderWidth={1} borderRadius="lg" bg="purple.500" color="white">
           <Text fontSize="lg" fontWeight="bold">Leads contacted the past week</Text>
