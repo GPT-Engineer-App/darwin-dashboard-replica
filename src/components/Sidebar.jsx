@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <Box bg="gray.800" color="white" minH="100vh" p={4} width="250px">
+    <Box bg="gray.800" color="white" minH="100vh" p={4} width="80px">
       <VStack align="start" spacing={4}>
         <NavLink to="/dashboard" style={{ width: "100%" }}>
           <Box display="flex" alignItems="center">
