@@ -18,7 +18,7 @@ const Sidebar = () => {
             <Text ml={2}>Create Campaign</Text>
           </Box>
         </NavLink>
-        <NavLink to="/create-offer" style={{ width: "100%" }}>
+        <NavLink to="/offers" style={{ width: "100%" }}>
           <Box display="flex" alignItems="center">
             <FaGift />
             <Text ml={2}>Create Offer</Text>

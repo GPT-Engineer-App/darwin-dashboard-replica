@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar.jsx";
 import Sidebar from "./components/Sidebar.jsx";
 import CreateCampaign from "./pages/CreateCampaign.jsx";
 import CreateOffer from "./pages/CreateOffer.jsx";
+import OfferList from "./pages/OfferList.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route exact path="/dashboard" element={<Dashboard />} />
             <Route exact path="/create-campaign" element={<CreateCampaign />} />
             <Route exact path="/create-offer" element={<CreateOffer />} />
+            <Route exact path="/offers" element={<OfferList />} />
           </Routes>
         </Box>
       </Flex>

@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Box, Text, Input, Button, VStack, HStack, Textarea, IconButton } from "@chakra-ui/react";
 import { FaPlus, FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const CreateOffer = () => {
+  const [offerName, setOfferName] = useState("Blank Name");
   const [company, setCompany] = useState("");
   const [buyerTitles, setBuyerTitles] = useState([{ title: "", painPoints: [""], goals: [""] }]);
+  const navigate = useNavigate();
 
   const handleAddBuyerTitle = () => {
     setBuyerTitles([...buyerTitles, { title: "", painPoints: [""], goals: [""] }]);
@@ -60,17 +63,23 @@ const CreateOffer = () => {
 
   const handleSave = () => {
     const offer = {
+      offerName,
       company,
       buyerTitles,
     };
     console.log("Offer saved:", offer);
     // Here you can add the logic to save the offer, e.g., send it to an API
+    navigate("/offers");
   };
 
   return (
     <Box p={4}>
       <Text fontSize="2xl" fontWeight="bold">Create Offer</Text>
       <VStack spacing={4} mt={4} align="start">
+        <Box>
+          <Text fontWeight="bold">Offer Name</Text>
+          <Input value={offerName} onChange={(e) => setOfferName(e.target.value)} placeholder="Enter offer name" />
+        </Box>
         <Box>
           <Text fontWeight="bold">Company</Text>
           <Input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Enter company name" />
@@ -101,7 +110,10 @@ const CreateOffer = () => {
           </Box>
         ))}
         <Button leftIcon={<FaPlus />} onClick={handleAddBuyerTitle}>Add Buyer Title</Button>
-        <Button colorScheme="blue" onClick={handleSave}>Save Offer</Button>
+        <HStack spacing={4}>
+          <Button colorScheme="blue" onClick={handleSave}>Save Offer</Button>
+          <Button onClick={() => navigate("/offers")}>Back</Button>
+        </HStack>
       </VStack>
     </Box>
   );
