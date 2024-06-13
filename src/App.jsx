@@ -1,3 +1,4 @@
+import { Box, Flex } from "@chakra-ui/react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Index from "./pages/Index.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
