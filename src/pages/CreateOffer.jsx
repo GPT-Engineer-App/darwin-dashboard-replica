@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, Text, Input, Button, VStack, HStack, Textarea, IconButton } from "@chakra-ui/react";
 import { FaPlus, FaTrash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const CreateOffer = () => {
   const [offerName, setOfferName] = useState("Blank Name");
   const [company, setCompany] = useState("");
   const [buyerTitles, setBuyerTitles] = useState([{ title: "", painPoints: [""], goals: [""] }]);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleAddBuyerTitle = () => {
     setBuyerTitles([...buyerTitles, { title: "", painPoints: [""], goals: [""] }]);
@@ -61,14 +62,24 @@ const CreateOffer = () => {
     setBuyerTitles(newBuyerTitles);
   };
 
+  useEffect(() => {
+    if (location.state && location.state.offer) {
+      const { offerName, company, buyerTitles } = location.state.offer;
+      setOfferName(offerName);
+      setCompany(company);
+      setBuyerTitles(buyerTitles);
+    }
+  }, [location.state]);
+
   const handleSave = () => {
     const offer = {
       offerName,
       company,
       buyerTitles,
     };
-    console.log("Offer saved:", offer);
-    // Here you can add the logic to save the offer, e.g., send it to an API
+    const savedOffers = JSON.parse(localStorage.getItem("offers")) || [];
+    const updatedOffers = [...savedOffers, offer];
+    localStorage.setItem("offers", JSON.stringify(updatedOffers));
     navigate("/offers");
   };
 
