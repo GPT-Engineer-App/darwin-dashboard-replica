@@ -1,11 +1,21 @@
-import { Box, Flex, Text, VStack, HStack, Table, Thead, Tbody, Tr, Th, Td, Avatar, IconButton } from "@chakra-ui/react";
+import { Box, Flex, Text, VStack, HStack, Table, Thead, Tbody, Tr, Th, Td, Avatar, IconButton, Button } from "@chakra-ui/react";
 import { FaArrowRight } from "react-icons/fa";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const Dashboard = () => {
+  const [campaigns, setCampaigns] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const savedCampaigns = JSON.parse(localStorage.getItem("campaigns")) || [];
+    setCampaigns(savedCampaigns);
+  }, []);
+
   const data = {
     labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     datasets: [
@@ -26,6 +36,7 @@ const Dashboard = () => {
       },
     },
   };
+
   return (
     <Box p={4}>
       <Flex direction="column" mb={4}>
@@ -118,6 +129,16 @@ const Dashboard = () => {
             </Box>
           ))}
         </VStack>
+      </Box>
+      <Box mt={8}>
+        <Text fontSize="xl" fontWeight="bold">Campaigns</Text>
+        {campaigns.map((campaign, index) => (
+          <Box key={index} mt={4} p={4} borderWidth={1} borderRadius="lg">
+            <Text fontWeight="bold">{campaign.campaignName}</Text>
+            <Text>Offer: {campaign.selectedOffer.offerName}</Text>
+            <Button mt={2} colorScheme="blue" onClick={() => navigate(`/campaign/${index}`)}>View Emails</Button>
+          </Box>
+        ))}
       </Box>
     </Box>
   );
