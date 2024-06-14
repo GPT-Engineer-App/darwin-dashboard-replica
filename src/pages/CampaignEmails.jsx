@@ -9,6 +9,7 @@ const CampaignEmails = () => {
   const campaigns = JSON.parse(localStorage.getItem("campaigns")) || [];
   const campaign = campaigns[campaignId];
   const [steps, setSteps] = useState(generateEmails(campaign));
+  const [selectedStep, setSelectedStep] = useState(0);
 
   const handleDeleteStep = (index) => {
     const updatedSteps = steps.filter((_, i) => i !== index);
@@ -37,7 +38,7 @@ const CampaignEmails = () => {
       <Flex mt={4}>
         <Box flex="1" mr={4}>
           {steps.map((step, index) => (
-            <Box key={index} mt={4} p={4} borderWidth={1} borderRadius="lg">
+            <Box key={index} mt={4} p={4} borderWidth={1} borderRadius="lg" onClick={() => setSelectedStep(index)}>
               <HStack justify="space-between">
                 <Text fontWeight="bold">Step {index + 1}</Text>
                 <IconButton icon={<FaTrash />} onClick={() => handleDeleteStep(index)} />
@@ -74,8 +75,8 @@ const CampaignEmails = () => {
         <Box flex="2" ml={4}>
           {steps.length > 0 && (
             <>
-              <Text fontWeight="bold">Subject: {steps[0].subject}</Text>
-              <Textarea value={steps[0].body} readOnly />
+              <Text fontWeight="bold">Subject: {steps[selectedStep].subject}</Text>
+              <Textarea value={steps[selectedStep].body} onChange={(e) => handleChange(selectedStep, "body", e.target.value)} />
             </>
           )}
         </Box>
