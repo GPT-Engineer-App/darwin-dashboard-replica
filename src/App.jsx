@@ -1,6 +1,7 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Index from "./pages/Index.jsx";
+import Campaigns from "./pages/Campaigns.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Sidebar from "./components/Sidebar.jsx";
@@ -23,6 +24,7 @@ function App() {
             <Route exact path="/create-offer" element={<CreateOffer />} />
             <Route exact path="/offers" element={<OfferList />} />
           <Route exact path="/campaign/:campaignId" element={<CampaignEmails />} /> {/* Add the new route */}
+          <Route exact path="/campaigns" element={<Campaigns />} />
           </Routes>
         </Box>
       </Flex>
