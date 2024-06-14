@@ -1,5 +1,5 @@
 import { Box, VStack, Link, Text } from "@chakra-ui/react";
-import { FaChartLine, FaBullhorn, FaGift } from "react-icons/fa";
+import { FaChartLine, FaBullhorn, FaGift, FaEnvelope } from "react-icons/fa"; // Import FaEnvelope icon
 import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
@@ -22,6 +22,12 @@ const Sidebar = () => {
           <Box display="flex" alignItems="center">
             <FaGift />
             <Text ml={2}>Create Offer</Text>
+          </Box>
+        </NavLink>
+        <NavLink to="/campaigns" style={{ width: "100%" }}> {/* Add new link for Campaigns */}
+          <Box display="flex" alignItems="center">
+            <FaEnvelope />
+            <Text ml={2}>Campaigns</Text>
           </Box>
         </NavLink>
       </VStack>
