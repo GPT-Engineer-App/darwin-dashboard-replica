@@ -7,6 +7,7 @@ import Sidebar from "./components/Sidebar.jsx";
 import CreateCampaign from "./pages/CreateCampaign.jsx";
 import CreateOffer from "./pages/CreateOffer.jsx";
 import OfferList from "./pages/OfferList.jsx";
+import CampaignEmails from "./pages/CampaignEmails.jsx"; // Import the new CampaignEmails component
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route exact path="/create-campaign" element={<CreateCampaign />} />
             <Route exact path="/create-offer" element={<CreateOffer />} />
             <Route exact path="/offers" element={<OfferList />} />
+          <Route exact path="/campaign/:campaignId" element={<CampaignEmails />} /> {/* Add the new route */}
           </Routes>
         </Box>
       </Flex>
