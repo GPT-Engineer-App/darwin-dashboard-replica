@@ -7,6 +7,8 @@ const CreateOffer = () => {
   const [offerName, setOfferName] = useState("Blank Name");
   const [company, setCompany] = useState("");
   const [buyerTitles, setBuyerTitles] = useState([{ title: "", painPoints: [""], goals: [""] }]);
+  const [problemSolved, setProblemSolved] = useState("");
+  const [currentSolution, setCurrentSolution] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -64,10 +66,12 @@ const CreateOffer = () => {
 
   useEffect(() => {
     if (location.state && location.state.offer) {
-      const { offerName, company, buyerTitles } = location.state.offer;
+      const { offerName, company, buyerTitles, problemSolved, currentSolution } = location.state.offer;
       setOfferName(offerName);
       setCompany(company);
       setBuyerTitles(buyerTitles);
+      setProblemSolved(problemSolved || "");
+      setCurrentSolution(currentSolution || "");
     }
   }, [location.state]);
 
@@ -76,6 +80,8 @@ const CreateOffer = () => {
       offerName,
       company,
       buyerTitles,
+      problemSolved,
+      currentSolution,
     };
     const savedOffers = JSON.parse(localStorage.getItem("offers")) || [];
     const updatedOffers = [...savedOffers, offer];
@@ -94,6 +100,14 @@ const CreateOffer = () => {
         <Box>
           <Text fontWeight="bold">Company</Text>
           <Input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Enter company name" />
+        </Box>
+        <Box>
+          <Text fontWeight="bold">What problem does the company solve?</Text>
+          <Textarea value={problemSolved} onChange={(e) => setProblemSolved(e.target.value)} placeholder="Describe the problem the company solves" />
+        </Box>
+        <Box>
+          <Text fontWeight="bold">How are people solving the problem today?</Text>
+          <Textarea value={currentSolution} onChange={(e) => setCurrentSolution(e.target.value)} placeholder="Describe how people are currently solving the problem" />
         </Box>
         {buyerTitles.map((buyer, index) => (
           <Box key={index} borderWidth={1} borderRadius="lg" p={4} width="100%">
